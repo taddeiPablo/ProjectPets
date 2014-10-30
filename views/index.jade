@@ -1,0 +1,36 @@
+//TEMPLATE LAYOUT index ES EL INGRESO A LA APLICACION
+
+extends layout
+
+
+block nav
+	ul(class='nav navbar-top-links navbar-right')
+		li
+			a(class='btn btn-primary') login
+
+block content
+	.container
+		.col-md-8
+			h1 PET'S
+			h2 Site for Adoption the pets
+			p From this site may take pets or give them up for adoption
+		.col-md-4
+			.panel.panel-default
+				.panel-heading
+					h5 Registrese
+				.panel-body
+					form(id="form1", method="", action="")
+						div(class='form-group')
+							label Nombre de Usuario
+							input(type='text', class='form-control', placeholder='Ingrese nombre')
+							p(class='help-block') Example block-level help text here.
+						div(class='form-group')
+							label Password
+							input(type='text', class='form-control', placeholder='Ingrese password')
+							p(class='help-block') Example block-level help text here.
+						div(class='form-group')
+							label Email
+							input(type='text', class='form-control', placeholder='Ingrese email')
+							p(class='help-block') Example block-level help text here.
+						div(class='form-group')
+							input(type='submit', class='btn btn-primary', text='Enviar', value='Registrese')
