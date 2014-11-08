@@ -1,0 +1,62 @@
+//AQUI VA EL TEMPLATE QUE SERA REPLICADO PARA 
+//MOSTRAR LAS PUBLICACIONES
+
+div(class='itemContent')
+	section(class='latest section')
+		div(class='content')
+			div(class='item featured text-center')
+				h3(class='title') Usuario
+				p(class='summary') Asunto o resumen
+				div(class='featured-image containerImage')
+					div(id='myCarousel',class='carousel slide')
+						ol(class='carousel-indicators')
+							li(data-target='#myCarousel', data-slide-to='0', class='active')
+							li(data-target='#myCarousel', data-slide-to='1')
+							li(data-target='#myCarousel', data-slide-to='2')
+						div(class='carousel-inner')
+							div(class='active item')
+								img(src='images/test1.jpg', alt='imagen')
+							div(class='item')
+								img(src='images/test2.jpg', alt='imagen')
+							div(class='item')
+								img(src='images/test3.jpg', alt='imagen')
+						a(class='carousel-control left', href='#myCarousel', data-slide='prev')
+							span(class='glyphicon glyphicon-chevron-left')
+						a(class='carousel-control right', href='#myCarousel', data-slide='next')
+							span(class='glyphicon glyphicon-chevron-right')
+					div(class='desc text-left containerInfo') 
+						div(class='col-lg-6')
+							label Datos de la mascota
+							div(class='form-group')
+								label nombre de la mascota :
+								label firullais
+								br
+								label Edad :
+								label 14
+								br 
+								label Dueño Actual :
+								label pablo_taddei
+						div(class='col-lg-6')
+							label Ficha Veterinaria
+							div(class='form-group')
+								label vacunas :
+								label 5
+								br
+								label Ultima revision :
+								label /07/11/2014
+								br
+								label medicamentos :
+									select
+										option ninguno
+								br
+								label crias :
+								label 0
+						label Descripcion
+						p
+							|Aqui la descripcion y agregado que quiera hacer el
+							|usario al respecto sobre este pedido de adopciones
+							|para una mascota, ademas se podra agregar cualquier tipo
+							|de informacion adicional que se requiera
+					div(class='containerButton')
+						a(class='btn btn-primary') Realizar alguna Pregunta
+						a(class='btn btn-success leftA') Adoptar

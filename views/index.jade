@@ -2,6 +2,11 @@
 
 extends layout
 
+block extraHeader
+	link(href='stylesheets/index_style.css', rel='stylesheet')
+
+block scripts
+	script(src='javascripts/scriptsTemplates/index.js')
 
 block nav
 	ul(class='nav navbar-top-links navbar-right')
@@ -33,4 +38,4 @@ block content
 							input(type='text', class='form-control', placeholder='Ingrese email')
 							p(class='help-block') Example block-level help text here.
 						div(class='form-group')
-							input(type='submit', class='btn btn-primary', text='Enviar', value='Registrese')
+							input(type='submit', class='btn btn-success', text='Enviar', value='Registrese')

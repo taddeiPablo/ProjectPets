@@ -1,8 +1,46 @@
 //TEMPLATE LAYOUT login DESDE AQUI SE REALIZA EL LOGUEO
 
-extends layout 
+extends layout
+
+block extraHeader
+	link(href='stylesheets/plugins/social-buttons.css', rel='stylesheet')
+	link(href='font-awesome-4.1.0/css/font-awesome.min.css', rel='stylesheet')
+	link(href='stylesheets/login.css', rel='stylesheet')
+block nav
+	ul(class='nav navbar-top-links navbar-right')
+		li
+			a(class='btn btn-primary') Volver
 
 block content
 	.container
-		div(class='row')
+		div(class='col-md-8 LogueoSocial')
+			.panel.panel-default
+				.panel-heading
+					h5 Logueo Social
+				div(class='panel-body extra')
+					div(class='contentButtons')
+						a(class='btn btn-block btn-social btn-facebook') Inicie Seccion con Facebook
+							i(class='fa fa-facebook')
+						a(class='btn btn-block btn-social btn-twitter') Inicie Seccion con Twitter
+							i(class='fa fa-twitter')
+						a(class='btn btn-block btn-social btn-google-plus') Inicie Seccion con G+
+							i(class='fa fa-google-plus')
+		.col-md-4
+			.panel.panel-default
+				.panel-heading
+					h5 Logueo
+				.panel-body
+					form(id="form1", method="", action="")
+						div(class='form-group')
+							label Nombre de Usuario
+							input(type='text', class='form-control', placeholder='Ingrese nombre')
+							p(class='help-block') Example block-level help text here.
+						div(class='form-group')
+							label Password
+							input(type='text', class='form-control', placeholder='Ingrese password')
+							p(class='help-block') Example block-level help text here.
+						div(class='form-group')
+							input(type='submit', class='btn btn-success', text='Enviar', value='Ingrese')
+
+
 			

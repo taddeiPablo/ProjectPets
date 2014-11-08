@@ -1,0 +1,35 @@
+/*ESTILOS AUXILIARES NO SON LOS DEFINITIVOS*/
+
+/**/
+.itemContent{
+	margin:0px auto;
+	width: 65%;
+	border:1px solid #D4D0D0;
+	border-radius:10px;
+	margin-top: 20px;
+}
+
+/**/
+.containerImage{
+	margin-top: 25px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+/**/
+.containerInfo{
+	margin-top: 35px;
+	padding-left: 15px;
+	padding-right: 15px;
+}
+
+/**/
+.containerButton{
+	padding-bottom: 25px;
+	padding-top: 20px;
+}
+
+/*85%*/
+.leftA{
+	margin-left:20px;
+}
