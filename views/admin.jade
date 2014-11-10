@@ -10,6 +10,7 @@ block extraHeader
 	link(href='stylesheets/sb-admin-2.css', rel='stylesheet')
 	link(href='font-awesome-4.1.0/css/font-awesome.min.css', rel='stylesheet')
 	link(href='stylesheets/auxAdmin.css',rel='stylesheet')
+	link(href='stylesheets/profile.css', rel='stylesheet')
 block scripts
 	script(src='javascripts/bootstrap.min.js')
 	script(src='javascripts/plugins/metisMenu/metisMenu.min.js')
@@ -78,7 +79,7 @@ block nav
 				i(class='fa fa-caret-down')
 			ul(class='dropdown-menu dropdown-user')
 				li
-					a(href='#')
+					a(id='profile', href='#')
 						i(class='fa fa-user fa-fw') User Profile
 				li
 					a(href='#')
@@ -106,7 +107,7 @@ block nav
 						li
 							a( href='#') Nueva Publicacion
 						li
-							a(href='#') Ver Publicaciones
+							a(href='/admin') Ver Publicaciones
 				li
 					a(href='#') Alertas
 						span(class='fa arrow')
@@ -134,10 +135,10 @@ block content
 	div(id='page-wrapper')
 		div(class='row')
 			div(class='col-lg-12')
-				h1(class='page-header',style='height:45px;') Dashboard
+				h1(class='page-header h1Extra') Dashboard
 		div(id='load', class='row')
-			div(style='height:700px')
-				ul(class='nav')
+			div(id='listContent', class='contentList')
+				ul(id='list',class='nav')
 					li
 						div(class='itemContent')
 							section(class='latest section')

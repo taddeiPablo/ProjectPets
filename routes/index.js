@@ -12,8 +12,13 @@ router.get('/login', function(req, res){
 });
 
 /*GET admin page*/
-router.get('/admin', function(req,res){
+router.get('/admin', function(req, res){
 	res.render('admin');
+});
+
+/*GET profile template profile*/
+router.get('/profile', function(req, res){
+	res.render('\\profile\\Profile');
 });
 
 module.exports = router;

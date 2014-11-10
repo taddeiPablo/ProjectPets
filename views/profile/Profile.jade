@@ -1,0 +1,52 @@
+//TEMPLATE PARA CREAR EL PROFILE DEL USUARIO
+
+div(class='container')
+	div(class='row')
+	div(class='col-md-5  toppad  pull-right col-md-offset-3')
+		a Edit Profile
+		p(class='text-info')
+div(class='col-xs-12 col-sm-12 col-md-6 col-lg-6 col-xs-offset-0 col-sm-offset-0 col-md-offset-3 col-lg-offset-3 toppad')
+	div(class='panel panel-info')
+		div(class='panel-heading')
+			h3(class='panel-title') Usuario
+		div(class='panel-body')
+			div(class='row')
+				div(class='col-md-3 col-lg-3', align='center')
+					img(alt='User Pic', src='images/photo.jpg', class='img-circle')
+				div(class='col-md-9 col-lg-9')
+					table(class='table table-user-information')
+						tbody
+							tr
+								td
+									label Name :
+								td
+									input(type='text',id='name', value='pablo', disabled='false')
+							tr
+								td 
+									label apellido :
+								td
+									input(type='text', id='ape', value='06/23/2014', disabled='false')
+							tr 
+								td 
+									label direccion :
+								td
+									input(type='text', id='dir', value='av san martin', disabled='false')
+							tr
+								td 
+									label localidad :
+								td 
+									input(type='text', id='loc', value='Quilmes', disabled='false')
+							tr
+								td 
+									label telefono :
+								td 
+									input(type='text', id='tel', value='46345546', disabled='false')
+							tr
+								td 
+									label celular :
+								td 
+									input(type='text', id='cel', value='15345645576', disabled='false')
+							tr
+		div(class='panel-footer')
+			a(data-original-title='Broadcast Message', data-toggle='tooltip' type='button', class='btn btn-sm btn-primary') Guardar cammbios
+
