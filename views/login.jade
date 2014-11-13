@@ -30,14 +30,14 @@ block content
 				.panel-heading
 					h5 Logueo
 				.panel-body
-					form(id="form1", method="", action="")
+					form(id="form1", method="post", action="/users/login", enctype='application/x-www-form-urlencoded')
 						div(class='form-group')
 							label Nombre de Usuario
-							input(type='text', class='form-control', placeholder='Ingrese nombre')
+							input(type='text', id='nomUsr', class='form-control', name='nomUsr', placeholder='Ingrese nombre')
 							p(class='help-block') Example block-level help text here.
 						div(class='form-group')
 							label Password
-							input(type='text', class='form-control', placeholder='Ingrese password')
+							input(type='text', id='pass' class='form-control', name='pass', placeholder='Ingrese password')
 							p(class='help-block') Example block-level help text here.
 						div(class='form-group')
 							input(type='submit', class='btn btn-success', text='Enviar', value='Ingrese')
