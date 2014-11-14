@@ -6,6 +6,9 @@ block extraHeader
 	link(href='stylesheets/plugins/social-buttons.css', rel='stylesheet')
 	link(href='font-awesome-4.1.0/css/font-awesome.min.css', rel='stylesheet')
 	link(href='stylesheets/login.css', rel='stylesheet')
+block scripts
+	script(src='javascripts/scriptsTemplates/loginScript.js')
+
 block nav
 	ul(class='nav navbar-top-links navbar-right')
 		li
@@ -30,7 +33,19 @@ block content
 				.panel-heading
 					h5 Logueo
 				.panel-body
-					form(id="form1", method="post", action="/users/login", enctype='application/x-www-form-urlencoded')
+					div
+						div(class='form-group')
+							label Nombre de Usuario
+							input(type='text', id='usrname', class='form-control', name='nomUsr', placeholder='Ingrese nombre')
+							p(class='help-block') Example block-level help text here.
+						div(class='form-group')
+							label Password
+							input(type='text', id='password' class='form-control', name='pass', placeholder='Ingrese password')
+							p(class='help-block') Example block-level help text here.
+						div(class='form-group')
+							input(type='button',id='btnL' class='btn btn-success', text='Enviar', value='Ingrese')
+
+					//form(id="form1", method="post", action="/users/login", enctype='application/x-www-form-urlencoded')
 						div(class='form-group')
 							label Nombre de Usuario
 							input(type='text', id='nomUsr', class='form-control', name='nomUsr', placeholder='Ingrese nombre')
@@ -40,7 +55,7 @@ block content
 							input(type='text', id='pass' class='form-control', name='pass', placeholder='Ingrese password')
 							p(class='help-block') Example block-level help text here.
 						div(class='form-group')
-							input(type='submit', class='btn btn-success', text='Enviar', value='Ingrese')
+							input(type='submit', class='btn btn-success', text='Enviar', value='Ingrese')//
 
 
 			
