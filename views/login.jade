@@ -33,29 +33,17 @@ block content
 				.panel-heading
 					h5 Logueo
 				.panel-body
-					div
+					form(id="form1", method="post", action="/users/login", enctype='application/x-www-form-urlencoded', novalidate)
 						div(class='form-group')
 							label Nombre de Usuario
-							input(type='text', id='usrname', class='form-control', name='nomUsr', placeholder='Ingrese nombre')
+							input(type='text', id='usrname', class='form-control', name='usrname', placeholder='Ingrese nombre', required)
 							p(class='help-block') Example block-level help text here.
 						div(class='form-group')
 							label Password
-							input(type='text', id='password' class='form-control', name='pass', placeholder='Ingrese password')
+							input(type='text', id='password' class='form-control', name='password', placeholder='Ingrese password', required)
 							p(class='help-block') Example block-level help text here.
 						div(class='form-group')
-							input(type='button',id='btnL' class='btn btn-success', text='Enviar', value='Ingrese')
-
-					//form(id="form1", method="post", action="/users/login", enctype='application/x-www-form-urlencoded')
-						div(class='form-group')
-							label Nombre de Usuario
-							input(type='text', id='nomUsr', class='form-control', name='nomUsr', placeholder='Ingrese nombre')
-							p(class='help-block') Example block-level help text here.
-						div(class='form-group')
-							label Password
-							input(type='text', id='pass' class='form-control', name='pass', placeholder='Ingrese password')
-							p(class='help-block') Example block-level help text here.
-						div(class='form-group')
-							input(type='submit', class='btn btn-success', text='Enviar', value='Ingrese')//
+							input(type='submit', class='btn btn-success', text='Enviar', value='Ingrese')
 
 
 			

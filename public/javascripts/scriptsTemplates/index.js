@@ -1,31 +1,34 @@
 /*SCRIPT PARA EL LAYOUT INDEX*/
 $(function(){
-	/**/
-	$('#btnR').click(function(){
-		var usrName = $('#usrName').val();
-		var password = $('#password').val();
-		var email = $('#email').val();
-		process_registration(usrName, password, email);
+	/*Aqui se ejecuta el evento submit en el momento que se preciona el boton
+	de registrar*/
+	$('#form1').submit(function(e){
+		//aqui se obtienen el array de datos, y la url
+		var postData = $(this).serializeArray();
+		var formUrl = $(this).attr('action');
+		//aqui en la funcion se van a mandar los datos utilizando ajax
+		process_registration(postData,formUrl);
+		//aqui se detiene el envio del formulario
+		e.preventDefault();
+		e.unbind();
 	});
 });
 
-/**/
-function process_registration(usrName, password, email){
-	var datos = {
-		"usrname" : usrName,
-		"password" : password,
-		"email" : email
-	}
-
+/*Funcion por la cual se verifica la existencia del usuario en el sistema*/
+function process_registration(postData, formUrl){
 	$.ajax({
 		cache : false,
-		data : datos,
-		url : "/users/registration",
+		data : postData,
+		url : formUrl,
 		type: "post",
 		dataType : "json",
 		contentType : "application/x-www-form-urlencoded",
 		success: function(data){
-			alert(data);
+			if(data != false){
+				$(location).attr('href','admin');
+			}else{
+				//aqui popUp con explicacion sobre el error
+			}
 		},
 		error : function(err){
 			alert(err);

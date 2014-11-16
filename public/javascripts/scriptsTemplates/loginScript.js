@@ -1,26 +1,26 @@
 /*SCRIPT PARA EL TEMPLATE DE LOGUEO*/
 
 $(function(){
-	/*aqui tenemos el evento del boton y esto seria provisorio hasta probar e investigar un
-	poco mas*/
-	$('#btnL').click(function(){
-		var usrName = $('#usrname').val();
-		var password = $('#password').val();
-		verification_login(usrName,password);
+	/*Aqui se ejecuta el evento submit en el momento que se preciona el boton
+	de registrar*/
+	$('#form1').submit(function(e){
+		//aqui se obtienen el array de datos, y la url
+		var postData = $(this).serializeArray();
+		var formUrl = $(this).attr('action');
+		//aqui en la funcion se van a mandar los datos utilizando ajax
+		verification_login(postData,formUrl);
+		//aqui se detiene el envio del formulario
+		e.preventDefault();
+		e.unbind();
 	});
 });
 
-/**/
-function verification_login(UsrName,pass){
-	var datos = {
-		"UsrName" : UsrName,
-		"password" : pass
-	};
-
+/*Funcion por la cual se verifica la existencia del usuario en el sistema*/
+function verification_login(postData, formUrl){
 	$.ajax({
 		cache : false,
-		data : datos,
-		url : "/users/login",
+		data : postData,
+		url : formUrl,
 		type: "post",
 		dataType : "json",
 		contentType : "application/x-www-form-urlencoded",

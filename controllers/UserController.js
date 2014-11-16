@@ -1,16 +1,18 @@
 /*Creacion del controller para el Usuario*/
 
+var crypto = require('crypto');
 var usr = require('../models/UserModel').Usr;
+
 
 //funcion login
 //Atravez de esta funcion hacemos la verificacion
 //del usuario si existe o no en la DB
 exports.login = function(req, res, next){
 	try{
-		console.log('ingreso aqui');
-		var nomUsr = req.body.UsrName;
-		var pass = req.body.password;
-		usr.findOne({usrName:nomUsr}, function(err, docs){
+		var nomUsr = req.body.usrname;
+		var passEncrip = encriptPassword(nomUsr, req.body.password);
+		
+		usr.findOne({usrName: nomUsr, 'password': passEncrip}, function(err, docs){
 			if(err){
 				console.log('-------- hubo error --------');
 				console.log(err);
@@ -28,23 +30,29 @@ exports.login = function(req, res, next){
 //function registration
 exports.registration = function(req, res, next){
 	try{
-		console.log(req.body.usrname);
-		/*var nomUsr = req.body.usrname;
+		var nomUsr = req.body.usrname;
 		var pass = req.body.password;
 		var email = req.body.email;
-		var profile = {};*/
-		//console.log(nomUsr);
-		//var newUsr = new usr({usrName:nomUsr, password:pass, email:email, profile:profile});
-		//console.log(newUsr);
-		/*newUsr.save(function(err){
-			if(err){
-				res.json(false);
+		var profile = {};
+		usr.findOne({usrName: nomUsr}, function(err, docs){
+			if(!docs){
+				var passEncriptado = encriptPassword(nomUsr, pass);
+				var newUsr = new usr({usrName:nomUsr, password:passEncriptado, email:email, profile:profile});
+				newUsr.save(function(err){
+					res.json(true);
+				});
 			}else{
-				res.json(true);
+				res.json(false);
 			}
-		});*/
+		});
 	}catch(err){
 		console.log(err);
 	}
+}
+
+/**/
+function encriptPassword(user, password){
+	var hmac = crypto.createHmac('sha1', user).update(password).digest('hex');
+	return hmac;
 }
 
