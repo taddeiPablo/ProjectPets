@@ -1,10 +1,10 @@
 /*MODELO PARA USERS*/
 
-var userModel = require('../models/Schemas').User;
+var user = require('../models/Schemas').User;
 
 
 
 module.exports = {
-	usrModel : userModel
+	Usr : user
 }
 

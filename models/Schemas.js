@@ -9,10 +9,10 @@ var userSchema = new schema({
 	usrName : String,
 	password : String,
 	email : String,
-	Profile : {}
+	profile : {}
 });
 
-//
+//Esquema del documento para las organizaciones
 var organizationSchema = new schema({
 	socialreason : String,
 	address : String,
@@ -22,7 +22,7 @@ var organizationSchema = new schema({
 	descripcion : String
 });
 
-//
+//Esquema del documento para las publicaciones
 var publicationSchema = new schema({
 	images: [Number],
 	asunto : String,
@@ -35,7 +35,7 @@ var publicationSchema = new schema({
 	adoption : Boolean
 });
 
-//
+//Esquema del documento para las alertas
 var alertSchema = new schema({
 	image : Number,
 	location : String,
@@ -43,14 +43,14 @@ var alertSchema = new schema({
 	description : String
 });
 
-//
+//Esquema del documento para los historiales de adopciones
 var hadoptionSchema = new schema({
 	images : [Number],
 	usrName : String,
 	description : String
 });
 
-//
+//Esquema del documento para los mensajes resividos y enviados
 var messageSchema = new schema({
 	usrName1 : String,
 	message1 : String,
@@ -59,15 +59,16 @@ var messageSchema = new schema({
 });
 
 
-/**/
-var UserModel = db.model('UserModel', userSchema);
-var OrganizationModel = db.model('OrganizationModel', organizationSchema);
-var PublicationModel = db.model('PublicationModel', publicationSchema);
-var AlertModel = db.model('AlertModel', alertSchema);
-var HadoptionModel = db.model('HadoptionModel', hadoptionSchema);
-var MessageModel = db.model('MessageModel', messageSchema);
+/*COMPILACION DE LOS MODELOS-
+**aqui se crean los modelos apartir de los esquemas creados*/
+var UserModel = db.model('User', userSchema);
+var OrganizationModel = db.model('Organization', organizationSchema);
+var PublicationModel = db.model('Publication', publicationSchema);
+var AlertModel = db.model('Alert', alertSchema);
+var HadoptionModel = db.model('Hadoption', hadoptionSchema);
+var MessageModel = db.model('Message', messageSchema);
 
-//
+//aqui se exportan los modelos
 module.exports = {
 	User : UserModel,
 	Org : OrganizationModel,
