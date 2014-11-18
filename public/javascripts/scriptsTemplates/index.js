@@ -52,7 +52,7 @@ function process_registration(postData, formUrl,formethod){
 		if(response != false){
 			$(location).attr('href','admin');
 		}else{
-
+			//aqui popUp
 		}
 	});
 }
