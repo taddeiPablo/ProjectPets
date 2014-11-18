@@ -50,7 +50,20 @@ exports.registration = function(req, res, next){
 	}
 }
 
-/**/
+exports.completeProfile = function(req, res, next){
+	try{
+		
+
+	}catch(err){
+		console.log(err);
+	}
+}
+
+
+
+
+//atravez de esta funcion se encriptan los password
+//de los usuarios 
 function encriptPassword(user, password){
 	var hmac = crypto.createHmac('sha1', user).update(password).digest('hex');
 	return hmac;

@@ -4,11 +4,8 @@ extends layout
 
 block extraHeader
 	link(href='stylesheets/index_style.css', rel='stylesheet')
-
 block scripts
-	script(src='http://html5form.googlecode.com/svn/trunk/jquery.html5form-1.5-min.js')
 	script(src='javascripts/scriptsTemplates/index.js')
-
 block nav
 	ul(class='nav navbar-top-links navbar-right')
 		li
@@ -28,15 +25,12 @@ block content
 					form(id='form1', method='post', action='/users/registration', enctype='application/x-www-form-urlencoded', novalidate)
 						div(class='form-group')
 							label Nombre de Usuario
-							input(type='text', class='form-control',name='usrname', placeholder='Ingrese nombre', required)
-							//p(class='help-block') Example block-level help text here.
+							input(type='text', class='form-control', name='usrname', placeholder='Ingrese nombre')
 						div(class='form-group')
 							label Password
-							input(type='password', class='form-control', name='password', placeholder='Ingrese password', required)
-							//p(class='help-block') Example block-level help text here.
+							input(type='password', class='form-control', name='password', placeholder='Ingrese password')
 						div(class='form-group')
 							label Email
-							input(type='text', class='form-control',name='email', placeholder='Ingrese email', required)
-							//p(class='help-block') Example block-level help text here.
+							input(type='text', class='form-control',name='email', placeholder='Ingrese email')
 						div(class='form-group')
 							input(type='submit', class='btn btn-success', text='Enviar', value='Registrese')

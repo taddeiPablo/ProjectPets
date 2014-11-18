@@ -1,37 +1,58 @@
 /*SCRIPT PARA EL LAYOUT INDEX*/
 $(function(){
-	/*Aqui se ejecuta el evento submit en el momento que se preciona el boton
-	de registrar*/
-	$('#form1').submit(function(e){
-		//aqui se obtienen el array de datos, y la url
-		var postData = $(this).serializeArray();
-		var formUrl = $(this).attr('action');
-		//aqui en la funcion se van a mandar los datos utilizando ajax
-		process_registration(postData,formUrl);
-		//aqui se detiene el envio del formulario
-		e.preventDefault();
-		e.unbind();
+	//Aqui se procede a validar los campos del formulario de registro
+	//Una vez validado los campos del formulario se procede a realizar el
+	//submit de los datos
+	$('#form1').validate({
+		rules :{
+			usrname : 'required',
+			email : 'required',
+			password : {
+				required : true,
+				minlength : 8
+			},
+			email : {
+				required : true,
+				email : true
+			}
+		},
+		messages :{
+			usrname : 'Por favor ingrese un nombre de usuario',
+			password :{
+				required : 'Por favor ingrese un password',
+				minlength : 'minimo 8 cataracteres'
+			},
+			email : 'por favor ingrese su email'
+		},
+		submitHandler: function(form){
+			//aqui obtenemos los atributos del formulario 
+			var postData = $(form).serializeArray();
+			var formUrl = $(form).attr('action');
+			var formMethod = $(form).attr('method');
+			//aqui en la funcion se van a mandar los datos utilizando ajax
+			process_registration(postData,formUrl,formMethod);
+
+			return false;
+		}
 	});
 });
 
+
+
 /*Funcion por la cual se verifica la existencia del usuario en el sistema*/
-function process_registration(postData, formUrl){
+function process_registration(postData, formUrl,formethod){
 	$.ajax({
 		cache : false,
 		data : postData,
 		url : formUrl,
-		type: "post",
+		type: formethod,
 		dataType : "json",
 		contentType : "application/x-www-form-urlencoded",
-		success: function(data){
-			if(data != false){
-				$(location).attr('href','admin');
-			}else{
-				//aqui popUp con explicacion sobre el error
-			}
-		},
-		error : function(err){
-			alert(err);
+	}).done(function(response){
+		if(response != false){
+			$(location).attr('href','admin');
+		}else{
+
 		}
 	});
 }

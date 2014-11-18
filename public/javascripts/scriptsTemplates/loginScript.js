@@ -1,38 +1,51 @@
 /*SCRIPT PARA EL TEMPLATE DE LOGUEO*/
 
 $(function(){
-	/*Aqui se ejecuta el evento submit en el momento que se preciona el boton
-	de registrar*/
-	$('#form1').submit(function(e){
-		//aqui se obtienen el array de datos, y la url
-		var postData = $(this).serializeArray();
-		var formUrl = $(this).attr('action');
-		//aqui en la funcion se van a mandar los datos utilizando ajax
-		verification_login(postData,formUrl);
-		//aqui se detiene el envio del formulario
-		e.preventDefault();
-		e.unbind();
+	//Aqui se procede a validar los campos del formulario de logueo
+	//Una vez validado los campos del formulario se procede a realizar 
+	//submit de los datos
+	$('#form1').validate({
+		rules :{
+			usrname : 'required',
+			password :{
+				required : true,
+				minlength : 8
+			}
+		},
+		message : {
+			usrname : 'Por favor complete este campo',
+			password : {
+				required : 'Por favor complete este campo',
+				minlength : 'minimo 8 caracteres'
+			}
+		},
+		submitHandler: function(form){
+			//aqui obtenemos los atributos del formulario		
+			var postData = $(form).serializeArray();
+			var formUrl = $(form).attr('action');
+			var formMethod = $(form).attr('method');
+			//aqui en la funcion se van a mandar los datos utilizando ajax
+			verification_login(postData, formUrl, formMethod);
+
+			return false;
+		}
 	});
 });
 
 /*Funcion por la cual se verifica la existencia del usuario en el sistema*/
-function verification_login(postData, formUrl){
+function verification_login(postData, formUrl, formethod){
 	$.ajax({
 		cache : false,
 		data : postData,
 		url : formUrl,
-		type: "post",
+		type: formethod,
 		dataType : "json",
 		contentType : "application/x-www-form-urlencoded",
-		success: function(data){
-			if(data != false){
-				$(location).attr('href','admin');
-			}else{
-				alert('el usuario no existe');//remplazar por popUp
-			}
-		},
-		error : function(err){
-			alert(err.message);//remplazar por popUp
+	}).done(function(response){
+		if(response != false){
+			$(location).attr('href','admin');
+		}else{
+
 		}
 	});
 }
