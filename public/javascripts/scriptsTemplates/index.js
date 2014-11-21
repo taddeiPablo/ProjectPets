@@ -29,8 +29,9 @@ $(function(){
 			var postData = $(form).serializeArray();
 			var formUrl = $(form).attr('action');
 			var formMethod = $(form).attr('method');
+			var content = $(form).attr('enctype');
 			//aqui en la funcion se van a mandar los datos utilizando ajax
-			process_registration(postData,formUrl,formMethod);
+			process_registration(postData,formUrl,formMethod, content);
 
 			return false;
 		}
@@ -40,14 +41,14 @@ $(function(){
 
 
 /*Funcion por la cual se verifica la existencia del usuario en el sistema*/
-function process_registration(postData, formUrl,formethod){
+function process_registration(postData, formUrl, formethod, contentT){
 	$.ajax({
 		cache : false,
 		data : postData,
 		url : formUrl,
 		type: formethod,
 		dataType : "json",
-		contentType : "application/x-www-form-urlencoded",
+		contentType : contentT,
 	}).done(function(response){
 		if(response != false){
 			$(location).attr('href','admin');

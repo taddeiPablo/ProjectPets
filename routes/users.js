@@ -8,4 +8,8 @@ router.post('/login', userController.login);
 /*POST users Registrar*/
 router.post('/registration', userController.registration);
 
+router.post('/getProfile', userController.getProfile);
+
+router.post('/CompleteProfile', userController.completeProfile);
+
 module.exports = router;
