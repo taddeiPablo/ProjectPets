@@ -13,11 +13,17 @@ router.get('/login', function(req, res){
 
 /*GET admin page*/
 router.get('/admin', function(req, res){
+	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+  	res.header("Pragma", "no-cache");
+  	res.header("Expires", 0);
 	res.render('admin');
 });
 
 /*GET profile template profile*/
 router.get('/profile', function(req, res){
+	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+  	res.header("Pragma", "no-cache");
+  	res.header("Expires", 0);
 	res.render('\\profile\\Profile');
 });
 

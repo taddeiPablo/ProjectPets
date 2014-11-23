@@ -44,6 +44,11 @@ function verification_login(postData, formUrl, formethod, contentT){
 		contentType : contentT,
 	}).done(function(response){
 		if(response != false){
+			//aqui si el logueo es exitoso se guarda el nombre de usuario
+			//y el id autonumerico
+			//en session
+			sessionStorage.setItem('usrname', $('#usrname').val());
+			sessionStorage.setItem('id', response);
 			$(location).attr('href','admin');
 		}else{
 

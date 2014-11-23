@@ -51,9 +51,9 @@ function process_registration(postData, formUrl, formethod, contentT){
 		contentType : contentT,
 	}).done(function(response){
 		if(response != false){
-			$(location).attr('href','admin');
+			alert('exito loguese ahora');
 		}else{
-			//aqui popUp
+			alert('error');
 		}
 	});
 }

@@ -11,7 +11,8 @@ $(function(){
 		$('.h1Extra').text('Profile');
 		$('#listContent').empty();
 		$('#listContent').load('/Profile');
-		getProfile();
+		var usrName = sessionStorage.getItem('usrname');
+		getProfile(usrName);
 	});
 
 	//evento del link edit para editar los campos del profile
@@ -22,6 +23,7 @@ $(function(){
 	//evento del link para guardar los datos modificados del profile
 	$('#listContent').on('click', "a[id='btnG']", function(){
 		var data = {
+			idUsr: sessionStorage.getItem('id'),
 			name:$('#name').val(), 
 			lastName:$('#lastName').val(), 
 			address:$('#address').val(), 
@@ -41,11 +43,11 @@ $(function(){
 });
 
 //desde esta funcion se obtiene los datos de perfil del usuario
-function getProfile(){
+function getProfile(userName){
 	try{
 		$.ajax({
 			cache: false,
-			data : 'nada',
+			data : {usrName : userName},
 			url : '/users/getProfile',
 			type: 'post',
 			contentType : 'application/x-www-form-urlencoded'
