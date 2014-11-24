@@ -1,0 +1,53 @@
+//TEMPLATE PARA CREAR EL PROFILE DEL USUARIO
+
+extends ../MasterTemplates/layout
+
+block extraHeader
+	include ../includes/links
+	link(href='stylesheets/profile.css',rel='stylesheet')
+block scripts
+	include ../includes/scripts
+	script(src='javascripts/scriptsTemplates/profile.js', type='text/javascript')
+block nav
+	include ../includes/Leftnavigation
+
+block content
+	div(id='main', class='container divPrincipal')
+		div(class='row')
+			form(id="form1", method="", action="")
+				div(class='col-md-3')
+					div(class='text-center')
+						img(src='images/photo.jpg', class='avatar img-circle', alt='avatar')
+						h6 Upload a different photo
+						input(class='form-control', type='file')
+				div(class='col-md-9 personal-info')
+					div(class='alert alert-info')
+						h3 Personal info
+						a Edit profile
+					div(class='form-group filePersonal')
+						label(class='col-lg-3 control-label') Name
+						div(class='col-lg-8')
+							input(id='name', name='Name',class='form-control', type='text')
+					div(class='form-group filePersonal')
+						label(class='col-lg-3 control-label') lastName
+						div(class='col-lg-8')
+							input(id='lastName',name='lastName',class='form-control', type='text')
+					div(class='form-group filePersonal')
+						label(class='col-lg-3 control-label') Address
+						div(class='col-lg-8')
+							input(id='adress',name='address',class='form-control', type='text')
+					div(class='form-group filePersonal')
+						label(class='col-lg-3 control-label') Location
+						div(class='col-lg-8')
+							input(id='location', name='Location',class='form-control', type='text')
+					div(class='form-group filePersonal')
+						label(class='col-lg-3 control-label') Phone
+						div(class='col-lg-8')
+							input(id='phone', name='Phone',class='form-control', type='text')
+					div(class='form-group filePersonal')
+						label(class='col-lg-3 control-label') Mobile
+						div(class='col-lg-8')
+							input(id='mobile', name='Mobile',class='form-control', type='text')
+					div(class='form-group filePersonal')
+						input(class='btn btn-primary' value='Save Changes' type='submit')
+

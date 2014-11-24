@@ -98,15 +98,19 @@ exports.getProfile = function(req, res, next){
 	console.log('ingreso en profile');
 	try{
 		var nomusr = req.body.usrName;
-		console.log(nomusr);
 		usr.findOne({usrName: nomusr}, function(err, docs){
 			if(err){
 				console.log('-----	error	-----');
 				console.log(err);
 			}else if(docs){
-				var Profile = docs.profile;
-				res.json(Profile);
+				if(docs.profile == undefined){
+					res.json(false);
+				}else{
+					var Profile = docs.profile;
+					res.json(Profile);
+				}
 			}else{
+				console.log('erro');
 				res.json(false);
 			}
 		});

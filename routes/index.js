@@ -8,7 +8,7 @@ router.get('/', function(req, res) {
 
 /*GET login page*/
 router.get('/login', function(req, res){
-	res.render('login');
+	res.render('Templates\\login');
 });
 
 /*GET admin page*/
@@ -16,7 +16,7 @@ router.get('/admin', function(req, res){
 	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
   	res.header("Pragma", "no-cache");
   	res.header("Expires", 0);
-	res.render('admin');
+	res.render('Templates\\admin');
 });
 
 /*GET profile template profile*/
@@ -24,7 +24,7 @@ router.get('/profile', function(req, res){
 	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
   	res.header("Pragma", "no-cache");
   	res.header("Expires", 0);
-	res.render('\\profile\\Profile');
+	res.render('\\Templates\\Profile');
 });
 
 module.exports = router;

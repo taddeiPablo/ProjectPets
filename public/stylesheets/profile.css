@@ -1,83 +1,13 @@
 /*ESTILOS PARA EL PROFILE DEL USUARIO*/
 
-.user-row {
-    margin-bottom: 14px;
+.divPrincipal{
+    width: 70%;
+    margin: 0px auto;
+    margin-left: 23em;
+    margin-top: 20px;
 }
 
-.user-row:last-child {
-    margin-bottom: 0;
-}
-
-/*.dropdown-user {
-    margin: 13px 0;
-    padding: 5px;
-    height: 100%;
-}*/
-
-.dropdown-user:hover {
-    cursor: pointer;
-}
-
-.table-user-information > tbody > tr {
-    border-top: 1px solid rgb(221, 221, 221);
-}
-
-.table-user-information > tbody > tr:first-child {
-    border-top: 0;
-}
-
-
-.table-user-information > tbody > tr > td {
-    border-top: 0;
-}
-.toppad{
-	margin-top:20px;
-}
-
-div.browse-wrap {
-    top:0;
-    left:0;
-    margin:5px;
-    cursor:pointer;
-    overflow:hidden;
-    /*padding:10px 10px;*/
-    text-align:center;
-    position:relative;
-    background-color:#f6f7f8;
-    border:solid 1px #d2d2d7;
-}
-
-div.title {
-    color:#3b5998;
-    font-size:14px;
-    font-weight:bold;
-    font-family:tahoma, arial, sans-serif;
-}
-    
-input.upload {
-    right:0;
-    margin:0;
-    bottom:0;
-    padding:0;
-    opacity:0;
-    height:300px;
-    outline:none;
-    cursor:inherit;
-    position:absolute;
-    font-size:1000px !important;
-}
-    
-span.upload-path {
-    text-align: center;
-    margin:20px;
-    display:block;
-    font-size: 80%;
-    color:#3b5998;
-    font-weight:bold;
-    font-family:tahoma, arial, sans-serif;
-}
-
-.DivProfile{
-    width: 60% !important;
+.filePersonal{
+    height: 50px;
 }
 
