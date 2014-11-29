@@ -59,6 +59,14 @@ var messageSchema = new schema({
 });
 
 
+//Esquema del documento para las imagenes
+var imgUsrOrg = new schema({
+	usrN: String,
+	img: String
+});
+
+
+
 /*COMPILACION DE LOS MODELOS-
 **aqui se crean los modelos apartir de los esquemas creados*/
 var UserModel = db.model('User', userSchema);
@@ -67,6 +75,7 @@ var PublicationModel = db.model('Publication', publicationSchema);
 var AlertModel = db.model('Alert', alertSchema);
 var HadoptionModel = db.model('Hadoption', hadoptionSchema);
 var MessageModel = db.model('Message', messageSchema);
+var imagenesProfileModel = db.model('Profile', imgUsrOrg);
 
 //aqui se exportan los modelos
 module.exports = {
@@ -75,5 +84,6 @@ module.exports = {
 	Publication : PublicationModel,
 	alert : AlertModel,
 	historyAdoption : HadoptionModel,
-	message : MessageModel
+	message : MessageModel,
+	imgProfile : imagenesProfileModel
 }

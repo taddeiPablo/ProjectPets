@@ -2,7 +2,9 @@
 
 var crypto = require('crypto');
 var usr = require('../models/UserModel').Usr;
+var imagesP = require('../models/UserModel').ImgP;
 var idusrSess;
+
 
 //funcion login
 //Atravez de esta funcion hacemos la verificacion
@@ -11,7 +13,6 @@ exports.login = function(req, res, next){
 	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
   	res.header("Pragma", "no-cache");
   	res.header("Expires", 0);
-
 	try{
 		var nomUsr = req.body.usrname;
 		var passEncrip = encriptPassword(nomUsr, req.body.password);
@@ -36,7 +37,6 @@ exports.registration = function(req, res, next){
 	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
   	res.header("Pragma", "no-cache");
   	res.header("Expires", 0);
-	
 	try{
 		var nomUsr = req.body.usrname;
 		var pass = req.body.password;
@@ -63,9 +63,8 @@ exports.completeProfile = function(req, res, next){
 	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
   	res.header("Pragma", "no-cache");
   	res.header("Expires", 0);
-	console.log('ingreso');
 	try{
- 
+		var imgBuffer = req.body.imgUrl;
 		var profile = {
 			name: req.body.name, 
 			lastName: req.body.lastName, 
@@ -73,7 +72,6 @@ exports.completeProfile = function(req, res, next){
 			location: req.body.location, 
 			phone: req.body.phone, 
 			mobile: req.body.mobile
-			//image: req.body.image
 		};
 		idusrSess = req.body.idUsr;
 
@@ -82,6 +80,14 @@ exports.completeProfile = function(req, res, next){
 				console.log(err);
 			}else{
 				console.log('update success' + afect);
+				var imgProfile = new imagesP({usrN: req.body.userName, img:imgBuffer});
+				imgProfile.save(function(err){
+					if(err){
+						console.log('error al cargar la imagen' + err);
+					}else{
+						console.log('bien cargada la imagen');
+					}
+				});
 				res.json(true);
 			}
 		});
@@ -95,7 +101,6 @@ exports.getProfile = function(req, res, next){
 	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
   	res.header("Pragma", "no-cache");
   	res.header("Expires", 0);
-	console.log('ingreso en profile');
 	try{
 		var nomusr = req.body.usrName;
 		usr.findOne({usrName: nomusr}, function(err, docs){
@@ -106,7 +111,14 @@ exports.getProfile = function(req, res, next){
 				if(docs.profile == undefined){
 					res.json(false);
 				}else{
-					var Profile = docs.profile;
+					var Profile = {
+						name: docs.profile.name, 
+						lastName: docs.profile.lastName, 
+						address: docs.profile.address, 
+						location: docs.profile.location, 
+						phone: docs.profile.phone, 
+						mobile: docs.profile.mobile
+					};
 					res.json(Profile);
 				}
 			}else{
@@ -119,30 +131,39 @@ exports.getProfile = function(req, res, next){
 	}
 }
 
+//
+exports.getImagesProfile = function(req, res, next){
+	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+  	res.header("Pragma", "no-cache");
+  	res.header("Expires", 0);
+  	try{
+  		var nomusr = req.body.usrName;
+  		console.log(nomusr);
+		imagesP.findOne({usrN: nomusr}, function(err, docs){
+			if(err){
+				console.log('-----	error	-----');
+				console.log(err);
+			}else{
+				if(docs != undefined){
+					//var imgOriginal = //getBinary(docs.img);
+					var image = {
+						img : docs.img
+					}
+					res.json(image);
+				}else{
+					res.json(false);
+				}
+			}
+		});
+  	}catch(err){
+
+  	}
+}
+
 
 //atravez de esta funcion se encriptan los password
 //de los usuarios 
 function encriptPassword(user, password){
 	var hmac = crypto.createHmac('sha1', user).update(password).digest('hex');
 	return hmac;
-}
-
-//
-function upload(filePath){
-	try{
-		var fs = require('fs');
-		var path = filePath;
-		var newPath = 'images';
-
-		var is = fs.createReadStream(path);
-		var os = fs.createWriteStream(newPath);
-
-		is.pipe(os);
-
-		is.on('end', function(){
-			fs.unlinkSync(path);
-		});
-	}catch(err){
-
-	}
 }
