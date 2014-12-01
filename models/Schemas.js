@@ -2,29 +2,38 @@
 
 var mongoose = require('mongoose');
 var db = require('../models/server').DB;
+var Gridfs = require('../models/server').Gfs;
 var schema = mongoose.Schema;
+var ObjectId = schema.ObjectId;
 
 //Esquema del documento para usuario
 var userSchema = new schema({
 	usrName : String,
 	password : String,
 	email : String,
-	profile : {}
 });
 
-//Esquema del documento para las organizaciones
-var organizationSchema = new schema({
-	socialreason : String,
+//Esquema del documento para el profile
+var profileSchema = new schema({
+	user:{
+		type: ObjectId,
+		ref: 'users'
+	},
+	name: String,
+	lastName : String,
 	address : String,
 	location : String,
 	phone : String,
-	email : String,
-	descripcion : String
+	mobile : String
 });
 
 //Esquema del documento para las publicaciones
 var publicationSchema = new schema({
-	images: [Number],
+	user:{
+		type: ObjectId,
+		ref: 'users'
+	},
+	name : String,
 	asunto : String,
 	petName : String,
 	age : Number,
@@ -37,7 +46,10 @@ var publicationSchema = new schema({
 
 //Esquema del documento para las alertas
 var alertSchema = new schema({
-	image : Number,
+	user: {
+		type: ObjectId,
+		ref: 'users'
+	},
 	location : String,
 	usrName : String,
 	description : String
@@ -45,7 +57,10 @@ var alertSchema = new schema({
 
 //Esquema del documento para los historiales de adopciones
 var hadoptionSchema = new schema({
-	images : [Number],
+	user:{
+		type: ObjectId,
+		ref: 'users'
+	},
 	usrName : String,
 	description : String
 });
@@ -58,32 +73,22 @@ var messageSchema = new schema({
 	message2 : String
 });
 
-
-//Esquema del documento para las imagenes
-var imgUsrOrg = new schema({
-	usrN: String,
-	img: String
-});
-
-
-
 /*COMPILACION DE LOS MODELOS-
 **aqui se crean los modelos apartir de los esquemas creados*/
 var UserModel = db.model('User', userSchema);
-var OrganizationModel = db.model('Organization', organizationSchema);
+var ProfileModel = db.model('Profile', profileSchema);
 var PublicationModel = db.model('Publication', publicationSchema);
 var AlertModel = db.model('Alert', alertSchema);
 var HadoptionModel = db.model('Hadoption', hadoptionSchema);
 var MessageModel = db.model('Message', messageSchema);
-var imagenesProfileModel = db.model('Profile', imgUsrOrg);
 
 //aqui se exportan los modelos
 module.exports = {
 	User : UserModel,
-	Org : OrganizationModel,
+	Profile: ProfileModel,
 	Publication : PublicationModel,
 	alert : AlertModel,
 	historyAdoption : HadoptionModel,
 	message : MessageModel,
-	imgProfile : imagenesProfileModel
+	GFs : Gridfs
 }

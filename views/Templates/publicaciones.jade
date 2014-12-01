@@ -1,17 +1,24 @@
 //TEMPLATE PARA REALIZAR EL ALTA DE PUBLICACIONES
 
-div(class='row')
-	div(class='col-lg-12')
-		div(class='panel panel-default')
-			div(class='panel-heading') Nueva Publicacion
-			div(class='panel-body')
-				div(class='row')
-					form(role='form')
-						label Cargar Imagenes
-						div(class='form-inline')
-							img(id='img1', alt='no cargo', src='images/photo.jpg')
-							img(id='img2', alt='no cargo', src='images/photo.jpg')
-							img(id='img3', alt='no cargo', src='images/photo.jpg')
-						div(class='form-group')
-							input(type='file', name='upload', class='upload', title='file', multiple)
+extends ../MasterTemplates/layout
 
+block extraHeader
+	include ../includes/links
+block scripts
+	include ../includes/scripts
+block nav
+	include ../includes/Leftnavigation
+
+block content
+	div(id='page-wrapper')
+		div(class='row')
+			div(class='col-lg-12')
+				h1(class='page-header h1Extra') Nueva Publicacion
+		div(id='load', class='row')
+			div(id='listContent', class='contentList')
+				form(role='form')
+					label Cargar Imagenes
+					div(class='form-inline')
+						img(id='img1', alt='no cargo', src='images/camera.png')
+					div(class='form-group')
+						input(type='file', name='upload', class='upload', title='file', multiple)

@@ -2,13 +2,15 @@
 
 var crypto = require('crypto');
 var usr = require('../models/UserModel').Usr;
-var imagesP = require('../models/UserModel').ImgP;
+var profile = require('../models/UserModel').prof;
+var gridFS = require('../models/UserModel').GFS;
 var idusrSess;
+var urlImages = '\\public\\temp\\';
+var path = require('path');
 
-
-//funcion login
-//Atravez de esta funcion hacemos la verificacion
-//del usuario si existe o no en la DB
+/*funcion login
+*Atravez de esta funcion hacemos la verificacion
+*del usuario si existe o no en la DB*/
 exports.login = function(req, res, next){
 	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
   	res.header("Pragma", "no-cache");
@@ -32,7 +34,7 @@ exports.login = function(req, res, next){
 	}
 }
 
-//function registration
+/*function registration*/
 exports.registration = function(req, res, next){
 	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
   	res.header("Pragma", "no-cache");
@@ -58,72 +60,69 @@ exports.registration = function(req, res, next){
 	}
 }
 
-//funcion para completar el profile
+/*funcion para completar el profile*/
 exports.completeProfile = function(req, res, next){
 	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
   	res.header("Pragma", "no-cache");
   	res.header("Expires", 0);
 	try{
-		var imgBuffer = req.body.imgUrl;
-		var profile = {
-			name: req.body.name, 
-			lastName: req.body.lastName, 
-			address: req.body.address, 
-			location: req.body.location, 
-			phone: req.body.phone, 
-			mobile: req.body.mobile
-		};
 		idusrSess = req.body.idUsr;
+		var urlimg = req.body.imgUrl;
+		
+		//console.log(gridFS);
 
-		usr.findByIdAndUpdate(idusrSess, {profile:profile}, { multi: true }, function(err, afect){
+		/*Profile = new profile({
+			user:idusrSess, 
+			name:req.body.name, 
+			lastName:req.body.lastName, 
+			address: req.body.address,
+			location:req.body.location,
+			phone:req.body.phone,
+			mobile:req.body.mobile     
+		});
+
+		Profile.save(function(err){
 			if(err){
-				console.log(err);
+				console.log(err + 'error');
+				res.json(false);
 			}else{
-				console.log('update success' + afect);
-				var imgProfile = new imagesP({usrN: req.body.userName, img:imgBuffer});
-				imgProfile.save(function(err){
-					if(err){
-						console.log('error al cargar la imagen' + err);
-					}else{
-						console.log('bien cargada la imagen');
-					}
-				});
+				console.log('profile success');
+				
 				res.json(true);
 			}
-		});
+		});*/
+		upload_img(urlimg);
 	}catch(err){
 		console.log(err);
 	}
 }
 
-//function para obtener el profile
+/*function para obtener el profile*/
 exports.getProfile = function(req, res, next){
 	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
   	res.header("Pragma", "no-cache");
   	res.header("Expires", 0);
 	try{
-		var nomusr = req.body.usrName;
-		usr.findOne({usrName: nomusr}, function(err, docs){
+		idusrSess = req.body.user;
+		console.log(idusrSess);
+		profile.findOne({user:idusrSess}, function(err, docs){
 			if(err){
-				console.log('-----	error	-----');
+				console.log('error al recuperar datos');
 				console.log(err);
-			}else if(docs){
-				if(docs.profile == undefined){
-					res.json(false);
-				}else{
+			}else{
+				if(docs != undefined){
 					var Profile = {
-						name: docs.profile.name, 
-						lastName: docs.profile.lastName, 
-						address: docs.profile.address, 
-						location: docs.profile.location, 
-						phone: docs.profile.phone, 
-						mobile: docs.profile.mobile
+						name: docs.name, 
+						lastName: docs.lastName, 
+						address: docs.address, 
+						location: docs.location, 
+						phone: docs.phone, 
+						mobile: docs.mobile
 					};
 					res.json(Profile);
+				}else{
+					res.json(false);
 				}
-			}else{
-				console.log('erro');
-				res.json(false);
 			}
 		});
 	}catch(err){
@@ -131,7 +130,7 @@ exports.getProfile = function(req, res, next){
 	}
 }
 
-//
+/**/
 exports.getImagesProfile = function(req, res, next){
 	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
   	res.header("Pragma", "no-cache");
@@ -166,4 +165,18 @@ exports.getImagesProfile = function(req, res, next){
 function encriptPassword(user, password){
 	var hmac = crypto.createHmac('sha1', user).update(password).digest('hex');
 	return hmac;
+}
+
+function upload_img(urlImg){
+	try{
+		//console.log(urlImg);
+		var fs = require('fs');
+		var source = fs.createReadStream(path.join(__dirname, '/../../public/target.txt'));    
+		var target = gridFS.createWriteStream({        
+			filename: 'file.txt'    
+		});    
+		source.pipe(target);
+	}catch(err){
+		console.log('error motivo '+err);
+	}
 }

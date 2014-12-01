@@ -27,4 +27,11 @@ router.get('/profile', function(req, res){
 	res.render('\\Templates\\Profile');
 });
 
+router.get('/NewPublication', function(req, res){
+	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
+  	res.header("Pragma", "no-cache");
+  	res.header("Expires", 0);
+	res.render('\\Templates\\publicaciones');
+});
+
 module.exports = router;

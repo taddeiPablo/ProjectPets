@@ -1,10 +1,12 @@
 /*MODEL USERS*/
 
 var user = require('../models/Schemas').User;
-var imgProfile = require('../models/Schemas').imgProfile;
+var profile = require('../models/Schemas').Profile;
+var GridFS = require('../models/Schemas').GFs;
 
 module.exports = {
 	Usr : user,
-	ImgP : imgProfile
+	prof : profile,
+	GFS : GridFS
 }
 

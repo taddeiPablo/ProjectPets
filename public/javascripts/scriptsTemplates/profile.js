@@ -8,9 +8,11 @@
 */
 $(function(){
 	$('#main').attr('disabled',true);
+	var idusr = sessionStorage.getItem('id');
 	var usrName = sessionStorage.getItem('usrname');
+	var imgUrl;
 	//se carga el perfil
-	LoadProfile(usrName);
+	LoadProfile(idusr);
 	
 	//aqui se valida el formulario del profile
 	$('#form1').validate({
@@ -63,7 +65,7 @@ $(function(){
 			var formUrl = $(form).attr('action');
 			var formMethod = $(form).attr('method');
 			var content = $(form).attr('enctype');
-			var imgUrl = {name:'imgUrl', value: $('#imgP').attr('src') };
+			var imgUrl = {name:'imgUrl', value:$('#imgP').attr('src')}; //$('#filep').val().replace("C:\\fakepath\\", "")}; //$('#imgP').attr('src').replace("C:\\fakepath\\", "")$('#imgP').attr('src') };
 			var idusr = {name:'idUsr', value: sessionStorage.getItem('id')};
 			var usrname = {name:'userName', value:sessionStorage.getItem('usrname')};
 			postData.push(imgUrl);
@@ -82,18 +84,18 @@ $(function(){
 });
 
 //En esta funcion recuperamos los datos de perfil
-function LoadProfile(userName){
+function LoadProfile(idUser){
 	try{
 		$.ajax({
 			cache: false,
-			data : {usrName : userName},
+			data : {user : idUser},
 			url : '/users/getProfile',
 			type: 'post',
 			contentType : 'application/x-www-form-urlencoded'
 		}).done(function(response){
 			if(response != false){
 				loadData(response);
-				LoadImages(userName);
+				//LoadImages(userName);
 			}else{
 				alert('aun no a cargado su profile');
 			}
