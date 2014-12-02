@@ -51,7 +51,7 @@ function verification_login(postData, formUrl, formethod, contentT){
 			sessionStorage.setItem('id', response);
 			$(location).attr('href','admin');
 		}else{
-
+			
 		}
 	});
 }

@@ -65,12 +65,14 @@ $(function(){
 			var formUrl = $(form).attr('action');
 			var formMethod = $(form).attr('method');
 			var content = $(form).attr('enctype');
-			var imgUrl = {name:'imgUrl', value:$('#imgP').attr('src')}; //$('#filep').val().replace("C:\\fakepath\\", "")}; //$('#imgP').attr('src').replace("C:\\fakepath\\", "")$('#imgP').attr('src') };
+			var prof = {name:'p', value: sessionStorage.getItem('p')};
+			var imgUrl = {name:'imgUrl', value: $('#imgP').attr('src')}; 
 			var idusr = {name:'idUsr', value: sessionStorage.getItem('id')};
 			var usrname = {name:'userName', value:sessionStorage.getItem('usrname')};
 			postData.push(imgUrl);
 			postData.push(idusr);
 			postData.push(usrname);
+			postData.push(prof);
 			completeProfile(postData,formUrl,formMethod,content);
 
 			return false;
@@ -94,9 +96,11 @@ function LoadProfile(idUser){
 			contentType : 'application/x-www-form-urlencoded'
 		}).done(function(response){
 			if(response != false){
+				sessionStorage.setItem('p', '1');
 				loadData(response);
-				//LoadImages(userName);
+				LoadImages(response.idP);
 			}else{
+				sessionStorage.setItem('p', '0');
 				alert('aun no a cargado su profile');
 			}
 		});
@@ -118,11 +122,12 @@ function loadData(profile){
 }
 
 //En esta funcion cargamos la imagen del profile
-function LoadImages(usrName){
+function LoadImages(idProfile){
 	try{
+		console.log(idProfile);
 		$.ajax({
 			cache : false,
-			data : {usrName : usrName},
+			data : {idprof : idProfile},
 			url : '/users/getImageProfile',
 			type: 'post',
 			dataType : "json",
@@ -162,8 +167,10 @@ function completeProfile(data, urlP, typeP, content){
 			dataType : "json",
 			contentType : content,
 		}).done(function(response){
-			if(response){
-				alert('bien');
+			if(response == 'save'){
+				alert('perfil guardado');
+			}else{
+				alert('perfil actualizado');
 			}
 		});
 	}catch(err){

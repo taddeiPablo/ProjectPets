@@ -3,10 +3,9 @@
 var crypto = require('crypto');
 var usr = require('../models/UserModel').Usr;
 var profile = require('../models/UserModel').prof;
-var gridFS = require('../models/UserModel').GFS;
+var imgP = require('../models/UserModel').imgP;
 var idusrSess;
-var urlImages = '\\public\\temp\\';
-var path = require('path');
+
 
 /*funcion login
 *Atravez de esta funcion hacemos la verificacion
@@ -60,6 +59,18 @@ exports.registration = function(req, res, next){
 	}
 }
 
+//atravez de esta funcion se encriptan los password
+//de los usuarios 
+function encriptPassword(user, password){
+	var hmac = crypto.createHmac('sha1', user).update(password).digest('hex');
+	return hmac;
+}
+
+/**
+ *=====================================================
+ *====== Alta y actualizacion de perfil y imagen ======
+**/
+
 /*funcion para completar el profile*/
 exports.completeProfile = function(req, res, next){
 	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
@@ -68,43 +79,126 @@ exports.completeProfile = function(req, res, next){
 	try{
 		idusrSess = req.body.idUsr;
 		var urlimg = req.body.imgUrl;
-		
-		//console.log(gridFS);
-
-		/*Profile = new profile({
-			user:idusrSess, 
-			name:req.body.name, 
-			lastName:req.body.lastName, 
-			address: req.body.address,
-			location:req.body.location,
-			phone:req.body.phone,
-			mobile:req.body.mobile     
-		});
-
-		Profile.save(function(err){
-			if(err){
-				console.log(err + 'error');
-				res.json(false);
-			}else{
-				console.log('profile success');
-				
-				res.json(true);
-			}
-		});*/
-		upload_img(urlimg);
+		var flag = req.body.p;
+		console.log(flag);
+		switch(flag)
+		{
+			case '0':
+  				console.log('alta');
+  				Profile = new profile({
+					user:idusrSess, 
+					name:req.body.name, 
+					lastName:req.body.lastName, 
+					address: req.body.address,
+					location:req.body.location,
+					phone:req.body.phone,
+					mobile:req.body.mobile     
+				});
+				Profile.save(function(err){
+					if(err){
+						console.log(err + 'error');
+						res.json(false);
+					}else{
+						console.log('profile success');
+						upload_img(urlimg, idusrSess);
+						res.json('save');
+					}
+				});
+  			break;
+			case '1':
+				console.log('actualizar');
+				var ProfileUpdate = {
+					user:idusrSess, 
+					name:req.body.name, 
+					lastName:req.body.lastName, 
+					address: req.body.address,
+					location:req.body.location,
+					phone:req.body.phone,
+					mobile:req.body.mobile
+				};
+				profile.findOne({user: idusrSess}, function(err, docs){
+					if(err){
+						console.log('error' + err);
+					}else{
+						console.log('success update');
+						docs.name = ProfileUpdate.name;
+						docs.lastName = ProfileUpdate.lastName;
+						docs.address = ProfileUpdate.address;
+						docs.location = ProfileUpdate.location;
+						docs.phone = ProfileUpdate.phone;
+						docs.mobile = ProfileUpdate.mobile;
+						docs.save();
+						update_img(urlimg, docs._id);
+						res.json('update');
+					}
+				});
+  			break;
+			default:
+				console.log('ninguna');
+		}
 	}catch(err){
 		console.log(err);
 	}
 }
+
+/*En esta funcion guardamos la imagen del perfil*/
+function upload_img(urlImg, idusr){
+	try{
+		console.log('alta img');
+		profile.findOne({user: idusr}, function(err, docs){
+			if(err){
+				console.log('error' + err);
+			}else{
+				var imagenProfile = new imgP({profile:docs._id, data:urlImg});
+				imagenProfile.save(function(err){
+					if(err){
+						console.log('error en carga de imagen' + err);
+					}else{
+						console.log('imagen bien cargada');
+					}
+				});
+			}
+		});
+	}catch(err){
+		console.log('error motivo '+err);
+	}
+}
+
+/*En esta funcion acemos la actualizacion de la imagen de perfil*/
+function update_img(urlImg, idProf){
+	try{
+		console.log('actualizar img');
+		var imagenProfileUp = {profile:idProf, data:urlImg};
+		imgP.findOne({profile: idProf}, function(err, docs){
+			if(err){
+				console.log('error' + err);
+			}else{
+				if(docs.data != imagenProfileUp.data){
+					docs.data = imagenProfileUp.data;
+					docs.save();
+				}
+			}
+		});
+	}catch(err){
+		console.log('error' + err);
+	}
+}
+
+/**
+ *======================================================
+ *========= Obtencion del Perfil y la Imagen ===========
+**/
+
 
 /*function para obtener el profile*/
 exports.getProfile = function(req, res, next){
 	res.header("Cache-Control", "no-cache, no-store, must-revalidate");
   	res.header("Pragma", "no-cache");
   	res.header("Expires", 0);
+  	console.log('ingreso aqui');
 	try{
 		idusrSess = req.body.user;
-		console.log(idusrSess);
+		//console.log(idusrSess);
 		profile.findOne({user:idusrSess}, function(err, docs){
 			if(err){
 				console.log('error al recuperar datos');
@@ -112,6 +206,7 @@ exports.getProfile = function(req, res, next){
 			}else{
 				if(docs != undefined){
 					var Profile = {
+						idP : docs._id,
 						name: docs.name, 
 						lastName: docs.lastName, 
 						address: docs.address, 
@@ -136,17 +231,17 @@ exports.getImagesProfile = function(req, res, next){
   	res.header("Pragma", "no-cache");
   	res.header("Expires", 0);
   	try{
-  		var nomusr = req.body.usrName;
-  		console.log(nomusr);
-		imagesP.findOne({usrN: nomusr}, function(err, docs){
+  		//console.log('imagenes aqui entro');
+  		var profileId = req.body.idprof;
+  		//console.log(profileId);
+		imgP.findOne({profile: profileId}, function(err, docs){
 			if(err){
 				console.log('-----	error	-----');
 				console.log(err);
 			}else{
 				if(docs != undefined){
-					//var imgOriginal = //getBinary(docs.img);
 					var image = {
-						img : docs.img
+						img : docs.data
 					}
 					res.json(image);
 				}else{
@@ -159,24 +254,3 @@ exports.getImagesProfile = function(req, res, next){
   	}
 }
 
-
-//atravez de esta funcion se encriptan los password
-//de los usuarios 
-function encriptPassword(user, password){
-	var hmac = crypto.createHmac('sha1', user).update(password).digest('hex');
-	return hmac;
-}
-
-function upload_img(urlImg){
-	try{
-		//console.log(urlImg);
-		var fs = require('fs');
-		var source = fs.createReadStream(path.join(__dirname, '/../../public/target.txt'));    
-		var target = gridFS.createWriteStream({        
-			filename: 'file.txt'    
-		});    
-		source.pipe(target);
-	}catch(err){
-		console.log('error motivo '+err);
-	}
-}

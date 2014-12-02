@@ -2,7 +2,6 @@
 
 var mongoose = require('mongoose');
 var db = require('../models/server').DB;
-var Gridfs = require('../models/server').Gfs;
 var schema = mongoose.Schema;
 var ObjectId = schema.ObjectId;
 
@@ -25,6 +24,15 @@ var profileSchema = new schema({
 	location : String,
 	phone : String,
 	mobile : String
+});
+
+//Esquema del documento para la imagen del perfil
+var imagesProfileSchema = new schema({
+	profile : {
+		type: ObjectId,
+		ref: 'profiles'
+	},
+	data: String
 });
 
 //Esquema del documento para las publicaciones
@@ -77,6 +85,7 @@ var messageSchema = new schema({
 **aqui se crean los modelos apartir de los esquemas creados*/
 var UserModel = db.model('User', userSchema);
 var ProfileModel = db.model('Profile', profileSchema);
+var ImagesprofileModel = db.model('ImgProfile',imagesProfileSchema);
 var PublicationModel = db.model('Publication', publicationSchema);
 var AlertModel = db.model('Alert', alertSchema);
 var HadoptionModel = db.model('Hadoption', hadoptionSchema);
@@ -86,9 +95,9 @@ var MessageModel = db.model('Message', messageSchema);
 module.exports = {
 	User : UserModel,
 	Profile: ProfileModel,
+	imageProfile: ImagesprofileModel,
 	Publication : PublicationModel,
 	alert : AlertModel,
 	historyAdoption : HadoptionModel,
 	message : MessageModel,
-	GFs : Gridfs
 }
