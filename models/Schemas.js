@@ -35,21 +35,33 @@ var imagesProfileSchema = new schema({
 	data: String
 });
 
+/*
+ *================================================
+ *			ESQUEMA DE PUBLICACIONES 
+ *================================================
+*/
+
 //Esquema del documento para las publicaciones
 var publicationSchema = new schema({
 	user:{
 		type: ObjectId,
 		ref: 'users'
 	},
-	name : String,
-	asunto : String,
-	petName : String,
-	age : Number,
-	sex : String,
-	currentowner : String,
-	veterinaryrecord : {},
-	description : String,
-	adoption : Boolean
+	asunto: String,
+	nombreMascota : String,
+	edad : Number,
+	DuenioActual : String,
+	Descripcion: String,
+	Adoptante : String
+});
+
+//Esquema del documento para las imagenes de las publicaciones
+var imagesPublicationSchema = new schema({
+	publication:{
+		type: ObjectId,
+		ref: 'publications'
+	},
+	data: String
 });
 
 //Esquema del documento para las alertas
@@ -87,6 +99,7 @@ var UserModel = db.model('User', userSchema);
 var ProfileModel = db.model('Profile', profileSchema);
 var ImagesprofileModel = db.model('ImgProfile',imagesProfileSchema);
 var PublicationModel = db.model('Publication', publicationSchema);
+var ImagesPublicationModel = db.model('ImgPublication', imagesPublicationSchema);
 var AlertModel = db.model('Alert', alertSchema);
 var HadoptionModel = db.model('Hadoption', hadoptionSchema);
 var MessageModel = db.model('Message', messageSchema);
@@ -96,7 +109,8 @@ module.exports = {
 	User : UserModel,
 	Profile: ProfileModel,
 	imageProfile: ImagesprofileModel,
-	Publication : PublicationModel,
+	publication : PublicationModel,
+	imgPublication : ImagesPublicationModel,
 	alert : AlertModel,
 	historyAdoption : HadoptionModel,
 	message : MessageModel,

@@ -4,8 +4,10 @@ extends ../MasterTemplates/layout
 
 block extraHeader
 	include ../includes/links
+	link(href='stylesheets/publicationSave.css',rel='stylesheet')
 block scripts
 	include ../includes/scripts
+	script(src='javascripts/scriptsTemplates/publication.js', type='text/javascript')
 block nav
 	include ../includes/Leftnavigation
 
@@ -13,12 +15,36 @@ block content
 	div(id='page-wrapper')
 		div(class='row')
 			div(class='col-lg-12')
-				h1(class='page-header h1Extra') Nueva Publicacion
+				h1(class='page-header h1Extra') Publicacion
 		div(id='load', class='row')
-			div(id='listContent', class='contentList')
-				form(role='form')
-					label Cargar Imagenes
-					div(class='form-inline')
-						img(id='img1', alt='no cargo', src='images/camera.png')
-					div(class='form-group')
-						input(type='file', name='upload', class='upload', title='file', multiple)
+			div(id='listContent', class='conteinerDiv')
+				form(id="form1", method="post", action="/publications/prueba", enctype='application/x-www-form-urlencoded')
+					legend Nueva Publicacion
+					div
+						div(class='subConteiner')
+							div(class='form-inline img-responsive')
+								img(id='img1', alt='no cargo', src='images/camera.png', class='img-responsive imgMascota')
+								h5 Tamaño max (800 x 700)
+							div(class='form-group fileImg')
+								input(type='file',id='filep', name='upload', class='upload', title='file', multiple)
+						hr
+					fieldset
+						div(class='fieldsConteiner')
+							h4 Datos
+							div(class='form-group')
+								label Asunto
+								input(type='text', id='asunto', class='form-control', name='asunto')
+							div(class='form-group')
+								label Nombre de la Mascota
+								input(type='text', id='petName' class='form-control', name='petName')
+							div(class='form-group')
+								label Edad
+								input(type='text', id='edad' class='form-control', name='edad')
+							div(class='form-group')
+								label Dueño actual
+								input(type='text', id='dueno' class='form-control', name='dueno')
+							div(class='form-group')
+								label Descripcion
+								textarea(class='form-control', id='textarea', name='descripcion', placeholder='aqui ingrese una breve descripcion')
+					div(class='form-group fieldsConteiner contentButton')
+						input(type='submit', class='btn btn-success', text='Enviar', value='PUBLICAR')

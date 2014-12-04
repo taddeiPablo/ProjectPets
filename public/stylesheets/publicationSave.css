@@ -1,0 +1,43 @@
+/*ESTILOS PARA EL TEMPLATE DE ALTA DE PUBLICACIONES*/
+
+.conteinerDiv{
+	margin: 0px auto;
+	width: 73%;
+	border: 1px solid #D4D0D0;
+	border-radius: 10px;
+	margin-top: 20px;
+}
+
+.subConteiner{
+	border-radius: 10px;
+	/*width: 367px;*/
+	margin: 0px auto;	
+}
+
+.fieldsConteiner{
+	border-radius: 10px;
+	width: 75%;
+	margin: 0px auto;	
+}
+
+textarea{
+	height: 195px !important;
+}
+
+.contentButton{
+	padding: 20px;
+}
+
+.imgMascota{
+	margin: 0px auto;
+}
+
+h5{
+	margin: 0px auto;
+	width: 155px;
+}
+
+.fileImg{
+	margin: 0px auto;
+	width: 150px;
+}

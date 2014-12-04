@@ -1,9 +1,9 @@
 /*MODEL PUBLICATIONS*/
 
-var publication = require('../models/Schemas').Publication;
-var imgPublication = require('../models/Schemas').imgPublic;
+var publicationN = require('../models/Schemas').publication;
+var imgpublic = require('../models/Schemas').imgPublication;
 
 module.exports = {
-	Publication : publication,
-	imgPublic : imgPublication
+	Publication : publicationN,
+	imgPublic : imgpublic
 }
